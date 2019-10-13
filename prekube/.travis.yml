@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t kamahl437/complex-test -f ./client/Dockerfile.dev ./client
+  # if you wanna do multiples just do this:
+# - docker build -t kamalh437/another-test -f ./worker/Dockerfile.dev ./worker
+script:
+  - docker run kamahl437/complex-test npm test -- --coverage
+
+after_success:
+  - docker build -t kamahl437/complex-client ./client
+  - docker build -t kamahl437/complex-nginx ./nginx
+  - docker build -t kamahl437/complex-server ./server
+  - docker build -t kamahl437/complex-worker ./worker
+  # login in to docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# take those images and push them to docker hub
+  - docker push kamahl437/complex-client
+  - docker push kamahl437/complex-nginx 
+  - docker push kamahl437/complex-server
+  - docker push kamahl437/complex-worker
