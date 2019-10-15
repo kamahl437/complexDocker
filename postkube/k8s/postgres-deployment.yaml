@@ -7,13 +7,13 @@ spec:
   selector:
     matchLabels:
       component: postgres
-    template:
-      metadata:
-        labels:
-          component: postgres
-      spec:
-        containers:
-          - name: postgres
-            image: postgres
-            ports:
-              - containerPort: 5432
+  template:
+    metadata:
+      labels:
+        component: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
