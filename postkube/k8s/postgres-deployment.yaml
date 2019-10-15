@@ -14,8 +14,8 @@ spec:
     spec:
       volumes:
         - name: postgres-storage
-          persistantVolumeClaim:
-            claimName: database-persistant-volume-claim
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim
       containers:
         - name: postgres
           image: postgres
